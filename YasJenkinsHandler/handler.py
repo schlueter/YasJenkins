@@ -37,6 +37,8 @@ class JenkinsHandler(YasHandler):
         password = os.environ.get('YAS_JENKINS_PASSWORD')
         self.server = jenkins.Jenkins(url, username=username, password=password)
         self.server.get_whoami()
+        self.current_job = None
+        self.current_match = None
 
     def test(self, data):
         text = data.get('text', '').strip()
@@ -46,6 +48,8 @@ class JenkinsHandler(YasHandler):
                 self.current_job = job
                 self.current_match = current_match
                 return True
+        return False
 
     def handle(self, _, reply):
         self.server.build_job(self.current_job, parameters=self.current_match.groupdict())
+        reply('doing that thing for you')
