@@ -1,8 +1,8 @@
 DOCKER_REPOSITORY := schlueter
-VERSION := $(shell sed -En "s/.*version='([^']+)'.*/\1/p" setup.py)
-CONTAINER_TAG := ${DOCKER_REPOSITORY}/yas:${VERSION}
-CONTAINER_LATEST_TAG := ${DOCKER_REPOSITORY}/yas:latest
 CONTAINER_NAME := yas-jenkins
+VERSION := $(shell sed -En "s/.*version='([^']+)'.*/\1/p" setup.py)
+CONTAINER_TAG := ${DOCKER_REPOSITORY}/${CONTAINER_NAME}:${VERSION}
+CONTAINER_LATEST_TAG := ${DOCKER_REPOSITORY}/${CONTAINER_NAME}:latest
 
 noop:
 	@echo 'Doing nothing. Have a look at the Makefile if you want to find something to do.'
