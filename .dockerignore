@@ -1,0 +1,9 @@
+.dockerignore
+.gitignore
+.pylintrc
+/*.egg-info/
+/.git/
+/build/
+/dist/
+Makefile
+__pycache__/
