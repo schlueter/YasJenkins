@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 setup(
     name='YasJenkinsHandler',
     description='A Jenkins handler for YAS',
-    version='1.0-alpha1',
+    version='1.0-alpha2',
     packages=find_packages(),
     install_requires=[
         'yas',
