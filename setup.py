@@ -10,7 +10,7 @@ setup(
     description='A Jenkins handler for YAS',
     long_description=LONG_DESCRIPTION,
     long_description_content_type="text/markdown",
-    version='1.0-alpha2',
+    version='1.0-alpha3',
     packages=find_packages(),
     install_requires=[
         'yas',
