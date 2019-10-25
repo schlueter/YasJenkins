@@ -2,9 +2,14 @@
 
 from setuptools import setup, find_packages
 
+with open("README.md", "r") as fh:
+    LONG_DESCRIPTION = fh.read()
+
 setup(
     name='YasJenkinsHandler',
     description='A Jenkins handler for YAS',
+    long_description=LONG_DESCRIPTION,
+    long_description_content_type="text/markdown",
     version='1.0-alpha2',
     packages=find_packages(),
     install_requires=[
