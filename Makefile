@@ -38,4 +38,8 @@ git-tag:
 	git tag -s ${VERSION}
 	git push --tags
 
+clean:
+	rm -rf dist build *.egg-info
+	find . -name __pycache__ -exec rm -rf {} +
+
 .PHONY: noop update-on-test-pypi update-on-pypi update-on-dockerhub dist test-pypi pypi build-container dockerhub git-tag
