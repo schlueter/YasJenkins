@@ -34,4 +34,8 @@ dockerhub-latest: build-container
 	docker tag ${CONTAINER_TAG} ${CONTAINER_LATEST_TAG}
 	docker push ${CONTAINER_LATEST_TAG}
 
-.PHONY: noop update-on-test-pypi update-on-pypi update-on-dockerhub dist test-pypi pypi build-container dockerhub
+git-tag:
+	git tag -s ${VERSION}
+	git push --tags
+
+.PHONY: noop update-on-test-pypi update-on-pypi update-on-dockerhub dist test-pypi pypi build-container dockerhub git-tag
