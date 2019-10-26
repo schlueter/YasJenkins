@@ -1,1 +1,1 @@
-from YasJenkinsHandler.handler import JenkinsHandler
+from yas-jenkins.handler import JenkinsHandler
