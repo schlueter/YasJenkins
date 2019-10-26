@@ -11,11 +11,11 @@ dist/${PACKAGE}-${VERSION}.tar.gz:
 
 test-pypi: update-on-test-pypi
 update-on-test-pypi: dist
-	python -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+	python -m twine upload -s --repository-url https://test.pypi.org/legacy/ dist/*
 
 pypi: update-on-pypi
 update-on-pypi: dist
-	python -m twine upload dist/*
+	python -m twine upload -s dist/*
 
 git-tag:
 	git tag -s ${VERSION}
