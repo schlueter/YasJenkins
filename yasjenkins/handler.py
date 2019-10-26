@@ -16,6 +16,7 @@ groups in the command regex will be passed as parameters to the job..
 '''
 import json
 import os
+import time
 import re
 
 import jenkins
@@ -35,6 +36,7 @@ class JenkinsHandler(YasHandler):
         url = os.environ.get('YAS_JENKINS_URL')
         username = os.environ.get('YAS_JENKINS_USERNAME')
         password = os.environ.get('YAS_JENKINS_PASSWORD')
+        self.timeout = int(os.environ.get('YAS_JENKINS_BUILD_TIMEOUT', 30))
         self.server = jenkins.Jenkins(url, username=username, password=password)
         self.server.get_whoami()
         self.current_job = None
@@ -51,5 +53,18 @@ class JenkinsHandler(YasHandler):
         return False
 
     def handle(self, _, reply):
+        job_info = self.server.get_job_info(self.current_job)
+        next_build_number = job_info['nextBuildNumber']
         self.server.build_job(self.current_job, parameters=self.current_match.groupdict())
-        reply('doing that thing for you')
+        pretty_params = ', '.join([f'`{name}: {value}`' for name, value in self.current_match.groupdict().items()])
+        reply(f'Starting build {next_build_number} of {self.current_job} with {pretty_params}')
+        for _ in range(self.timeout):
+            time.sleep(1)
+            job_info = self.server.get_job_info(self.current_job)
+            if job_info['lastBuild']['number'] == next_build_number:
+                break
+        else:
+            reply(f'Build {next_build_number} of {self.current_job} did not start in {self.timeout} seconds. '
+                  ' It may have failed, please check <{job_info["url"]}|the job> before notifying your ops team.')
+        build_info = self.server.get_build_info(self.current_job, job_info['lastBuild']['number'])
+        reply(f'Build started: <{build_info["url"]}|{build_info["displayName"]}>')
