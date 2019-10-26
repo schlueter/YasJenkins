@@ -7,18 +7,18 @@ To simply run a an instance of yas with this handler, `docker run` may be execut
 
     docker run --rm \
         --env YAS_SLACK_TOKEN=xoxb-XXXXXXXXXXXX-XXXXXXXXXXXXXXXXXXXXXXXX \
-        --env YAS_BOT_NAME=yas-jenkins \
+        --env YAS_BOT_NAME=yasjenkins \
         --env YAS_JENKINS_URL=https://jenkins.example.com \
-        --env YAS_JENKINS_USERNAME=yas-jenkins \
+        --env YAS_JENKINS_USERNAME=yasjenkins \
         --env YAS_JENKINS_PASSWORD=superdupersecret \
         --env YAS_JENKINS_JOBS='{"MyJob": "do ci (?P<branch>\w+)"}' \
-        --env YAS_HANDLER_LIST=yas.handlers.ignored_types_handler.,yas.handlers.not_talking_to_bot_handler.,yas.handlers.help_handler.,yas.handlers.identify_handler.,yas-jenkins.,yas.handlers.rules_handler.,yas.handlers.default_handler.
+        --env YAS_HANDLER_LIST=yas.handlers.ignored_types_handler.,yas.handlers.not_talking_to_bot_handler.,yas.handlers.help_handler.,yas.handlers.identify_handler.,yas_jenkins.,yas.handlers.rules_handler.,yas.handlers.default_handler.
 
-That handler list should be made DRYer sometime; the important bit for this module is the `yas-jenkins.`, but the
+That handler list should be made DRYer sometime; the important bit for this module is the `yas_jenkins.`, but the
 rest is mostly necessary for YAS to operate in a reasonable way.
 
-With yas installed manually, this module may be installed from pip with `python -m pip install yas-jenkins` and the handler entry
-"yas-jenkinsHandler." added to the `YAS_HANDLER_LIST` environment variable in the execution environment. This handler may work
+With yas installed manually, this module may be installed from pip with `python -m pip install yasjenkins` and the handler entry
+"yasjenkins." added to the `YAS_HANDLER_LIST` environment variable in the execution environment. This handler may work
 with pre 2.0 versions of yas by adding it to the handler list in the configuration file, but that is neither tested nor supported.
 
 ## Configuration

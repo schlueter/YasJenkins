@@ -7,7 +7,7 @@ with open("README.md", "r") as fh:
     LONG_DESCRIPTION = fh.read()
 
 setup(
-    name='yas-jenkins',
+    name='yasjenkins',
     description='A Jenkins handler for YAS',
     long_description=LONG_DESCRIPTION,
     long_description_content_type="text/markdown",
