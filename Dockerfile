@@ -6,4 +6,4 @@ ENV YAS_JENKINS_USERNAME ''
 ENV YAS_JENKINS_PASSWORD ''
 
 COPY . .
-RUN python -m pip install yas-jenkins
+RUN python -m pip install yasjenkins
