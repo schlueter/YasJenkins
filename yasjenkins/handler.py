@@ -41,9 +41,12 @@ class JenkinsHandler(YasHandler):
         self.server.get_whoami()
         self.current_job = None
         self.current_match = None
+        self.verbose_reply = False
 
     def test(self, data):
         text = data.get('text', '').strip()
+        if text.endswith('verbose'):
+            self.verbose_reply = True
         for job, regex in self.jobs.items():
             current_match = regex.search(text)
             if bool(current_match):
@@ -65,6 +68,10 @@ class JenkinsHandler(YasHandler):
                 break
         else:
             reply(f'Build {next_build_number} of {self.current_job} did not start in {self.timeout} seconds. '
-                  ' It may have failed, please check <{job_info["url"]}|the job> before notifying your ops team.')
+                  f' It may have failed, please check <{job_info["url"]}|the job> before notifying your ops team.')
         build_info = self.server.get_build_info(self.current_job, job_info['lastBuild']['number'])
-        reply(f'Build started: <{build_info["url"]}|{build_info["displayName"]}>')
+        if self.verbose_reply:
+            reply(f'Build started: <{build_info["url"]}|{build_info["displayName"]}>'
+                  f' with an estimated duration of {build_info["estimatedDuration"]} milliseconds.')
+        else:
+            reply(f'Build started: <{build_info["url"]}|{build_info["displayName"]}>')
