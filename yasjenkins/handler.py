@@ -45,8 +45,8 @@ class JenkinsHandler(YasHandler):
 
     def test(self, data):
         text = data.get('text', '').strip()
-        if text.endswith('verbose'):
-            self.verbose_reply = True
+        self.verbose_reply = text.endswith('verbose')
+
         for job, regex in self.jobs.items():
             current_match = regex.search(text)
             if bool(current_match):
