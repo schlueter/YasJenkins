@@ -69,6 +69,8 @@ class JenkinsHandler(YasHandler):
         else:
             reply(f'Build {next_build_number} of {self.current_job} did not start in {self.timeout} seconds. '
                   f' It may have failed, please check <{job_info["url"]}|the job> before notifying your ops team.')
+            return
+
         build_info = self.server.get_build_info(self.current_job, job_info['lastBuild']['number'])
         if self.verbose_reply:
             reply(f'Build started: <{build_info["url"]}|{build_info["displayName"]}>'
